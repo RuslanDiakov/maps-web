@@ -1,18 +1,29 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
 
-export default function PatientComparisonView({ params }: { params: { id: string } }) {
+export default async function PatientComparisonView(props: {
+  params: { id: string };
+}) {
+  await Promise.resolve();
+  const { id } = props.params;
   // Mock patient data
   const patient = {
-    id: params.id,
+    id,
     name: "John Doe",
     age: 45,
     gender: "Male",
     dob: "1987-12-15",
-  }
+  };
 
   // Mock timeline data for dropdowns
   const timelineOptions = [
@@ -21,45 +32,46 @@ export default function PatientComparisonView({ params }: { params: { id: string
     { label: "Week 8", value: "week8" },
     { label: "Week 12", value: "week12" },
     { label: "Week 18", value: "week18" },
-  ]
+  ];
 
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Patient Information */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-4xl font-bold">{patient.name}</h1>
-        <p className="text-muted-foreground">
-          {patient.age} years, {patient.gender} {patient.dob}
-        </p>
-        <div className="mt-4 border-t pt-4">
-          <Tabs defaultValue="comparison" className="w-full">
-            <TabsList className="w-auto bg-background border rounded-md p-1">
+
+        <div className="w-full  justify-between flex items-center">
+          <p className="text-muted-foreground border-b h-[39px] w-full items-center flex">
+            {patient.age} years, {patient.gender} {patient.dob}
+          </p>
+          <Tabs defaultValue="comparison" className="-inset-y-10">
+            <TabsList className="justify-start h-auto p-0 bg-transparent border-b rounded-none">
               <TabsTrigger
                 value="timeline"
-                className="data-[state=active]:bg-muted data-[state=active]:shadow-none rounded-sm"
-                asChild
+                className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                <Link href={`/patient/${params.id}/timeline`}>Timeline</Link>
+                <Link href={`/patient/${id}/timeline`}>Timeline</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="comparison"
-                className="data-[state=active]:bg-muted data-[state=active]:shadow-none rounded-sm"
+                className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
+                asChild
               >
-                Comparison View
+                <Link href={`/patient/${id}/comparison`}>Comparison View</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="notes"
-                className="data-[state=active]:bg-muted data-[state=active]:shadow-none rounded-sm"
+                className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 asChild
               >
-                <Link href={`/patient/${params.id}/notes`}>Clinical Notes</Link>
+                <Link href={`/patient/${id}/notes`}>Clinical Notes</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="details"
-                className="data-[state=active]:bg-muted data-[state=active]:shadow-none rounded-sm"
+                className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 asChild
               >
-                <Link href={`/patient/${params.id}/details`}>Patient Details</Link>
+                <Link href={`/patient/${id}/details`}>Patient Details</Link>
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -84,25 +96,29 @@ export default function PatientComparisonView({ params }: { params: { id: string
               </SelectContent>
             </Select>
           </div>
-
-          <div className="relative aspect-[3/4] mb-4 rounded-md overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=600&width=450&text=X-ray"
-              alt="Initial X-ray"
-              fill
-              className="object-cover bg-black"
-            />
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <h3 className="font-semibold">Initial</h3>
-              <p className="text-sm text-muted-foreground">2024-12-15</p>
+          <Card className="overflow-hidden p-0 space-y-2 gap-0">
+            <div className="relative aspect-square">
+              <Image
+                src="https://images.unsplash.com/photo-1741893041975-94a0e8656209"
+                alt="Week 4 X-ray"
+                fill
+                className="object-cover bg-black"
+              />
             </div>
-            <Button variant="outline" size="sm">
-              View
-            </Button>
-          </div>
+            <div className="p-3">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-semibold">Initial</h3>
+                  <p className="text-sm text-muted-foreground">2024-05-15</p>
+                </div>
+                <Link href={`/patient/${id}/week/${4}`}>
+                  <Button variant="outline" size="sm">
+                    View
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
         </div>
 
         {/* Right Side */}
@@ -121,28 +137,31 @@ export default function PatientComparisonView({ params }: { params: { id: string
               </SelectContent>
             </Select>
           </div>
-
-          <div className="relative aspect-[3/4] mb-4 rounded-md overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=600&width=450&text=X-ray"
-              alt="Week 4 X-ray"
-              fill
-              className="object-cover bg-black"
-            />
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <h3 className="font-semibold">Week 4</h3>
-              <p className="text-sm text-muted-foreground">2024-12-15</p>
+          <Card className="overflow-hidden p-0 space-y-2 gap-0">
+            <div className="relative aspect-square">
+              <Image
+                src="https://images.unsplash.com/photo-1740415924695-df06f4e1ab50"
+                alt="Week 4 X-ray"
+                fill
+                className="object-cover bg-black"
+              />
             </div>
-            <Button variant="outline" size="sm">
-              View
-            </Button>
-          </div>
+            <div className="p-3">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-semibold">Week 8</h3>
+                  <p className="text-sm text-muted-foreground">2024-12-15</p>
+                </div>
+                <Link href={`/patient/${id}/week/${4}`}>
+                  <Button variant="outline" size="sm">
+                    View
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
