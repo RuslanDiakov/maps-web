@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-interface PatientDetailsViewProps {
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+interface PatientClinicalNotesViewProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function PatientDetailsView({
+export default async function PatientClinicalNotesView({
   params,
-}: PatientDetailsViewProps) {
+}: PatientClinicalNotesViewProps) {
   const { id } = await params;
   // Mock patient data
   const patient = {
@@ -17,17 +18,39 @@ export default async function PatientDetailsView({
     age: 45,
     gender: "Male",
     dob: "1987-12-15",
-    phone: "(555) 123-4567",
-    email: "john.doe@example.com",
-    address: "123 Main St, Anytown, USA",
-    emergencyContact: "Jane Doe (Wife) - (555) 987-6543",
-    medicalHistory: [
-      "Hypertension - Diagnosed 2018",
-      "Type 2 Diabetes - Diagnosed 2020",
-    ],
-    allergies: ["Penicillin - Moderate reaction", "Latex - Mild reaction"],
-    medications: ["Lisinopril 10mg - Daily", "Metformin 500mg - Twice daily"],
   };
+
+  // Mock Clinical Notes
+  const clinicalNotes = [
+    {
+      id: 1,
+      title: "Treatment Progress",
+      date: "2024-12-15",
+      notes:
+        "Patient shows significant improvement in bone healing. The callus formation is progressing well, and there are signs of proper alignment. Recommended continued limited weight-bearing for another 4 weeks with follow-up imaging at that time.",
+    },
+    {
+      id: 2,
+      title: "Treatment Progress",
+      date: "2024-12-15",
+      notes:
+        "Patient shows significant improvement in bone healing. The callus formation is progressing well, and there are signs of proper alignment. Recommended continued limited weight-bearing for another 4 weeks with follow-up imaging at that time.",
+    },
+    {
+      id: 3,
+      title: "Treatment Progress",
+      date: "2024-12-15",
+      notes:
+        "Patient shows significant improvement in bone healing. The callus formation is progressing well, and there are signs of proper alignment. Recommended continued limited weight-bearing for another 4 weeks with follow-up imaging at that time.",
+    },
+    {
+      id: 4,
+      title: "Treatment Progress",
+      date: "2024-12-15",
+      notes:
+        "Patient shows significant improvement in bone healing. The callus formation is progressing well, and there are signs of proper alignment. Recommended continued limited weight-bearing for another 4 weeks with follow-up imaging at that time.",
+    },
+  ];
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -39,7 +62,7 @@ export default async function PatientDetailsView({
           <p className="text-muted-foreground border-b h-[39px] w-full items-center flex">
             {patient.age} years, {patient.gender} {patient.dob}
           </p>
-          <Tabs defaultValue="details" className="-inset-y-10">
+          <Tabs defaultValue="notes" className="-inset-y-10">
             <TabsList className="justify-start h-auto p-0 bg-transparent border-b rounded-none">
               <TabsTrigger
                 value="timeline"
@@ -73,72 +96,28 @@ export default async function PatientDetailsView({
         </div>
       </div>
 
-      {/* Patient Details */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
-            <div className="space-y-3">
-              <div>
-                <p className="text-sm font-medium">Phone</p>
-                <p className="text-sm text-muted-foreground">{patient.phone}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium">Email</p>
-                <p className="text-sm text-muted-foreground">{patient.email}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium">Address</p>
-                <p className="text-sm text-muted-foreground">
-                  {patient.address}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm font-medium">Emergency Contact</p>
-                <p className="text-sm text-muted-foreground">
-                  {patient.emergencyContact}
-                </p>
-              </div>
+      {/* Clinical Notes List */}
+      <div className="space-y-4">
+        {clinicalNotes.map((note) => (
+          <div key={note.id} className="border rounded-md p-4">
+            <div className="mb-1">
+              <h3 className="font-semibold">{note.title}</h3>
+              <p className="text-sm text-muted-foreground">{note.date}</p>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-sm">{note.notes}</p>
+          </div>
+        ))}
 
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Medical Information</h2>
-
-            <div className="mb-4">
-              <p className="text-sm font-medium mb-2">Medical History</p>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                {patient.medicalHistory.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <Separator className="my-4" />
-
-            <div className="mb-4">
-              <p className="text-sm font-medium mb-2">Allergies</p>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                {patient.allergies.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <Separator className="my-4" />
-
-            <div>
-              <p className="text-sm font-medium mb-2">Current Medications</p>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                {patient.medications.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Section to add new notes with title, notes,  Button */}
+        <div className="border rounded-md flex flex-col gap-2 p-4">
+          <Input placeholder="Title" className="w-1/3 " />
+          <Textarea placeholder="Notes" className="w-full" />
+          <div className="flex justify-end">
+            <Button variant={"default"} className="w-auto">
+              Add Note
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
