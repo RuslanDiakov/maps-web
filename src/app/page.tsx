@@ -29,7 +29,7 @@ export default function Home() {
             </div>
             <div className="relative w-full md:w-1/2 aspect-video">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="https://www.gep.com/prod/s3fs-public/blog-images/how-ai-is-advancing-the-medical-image-analysis-market.jpg"
                 alt="Medical imaging dashboard preview"
                 fill
                 className="object-cover rounded-lg shadow-lg"
