@@ -1,8 +1,8 @@
-import { Header } from "@/components/header"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Image from "next/image"
-import Link from "next/link"
+import { Header } from "@/components/header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,8 +16,9 @@ export default function Home() {
                 Fracture Healing Visualization
               </h1>
               <p className="text-muted-foreground md:text-xl">
-                Track and analyze fracture healing progression with our advanced imaging timeline tools. Designed for
-                medical professionals to improve patient outcomes.
+                Track and analyze fracture healing progression with our advanced
+                imaging timeline tools. Designed for medical professionals to
+                improve patient outcomes.
               </p>
               <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
                 <Link href="/dashboard">
@@ -29,7 +30,7 @@ export default function Home() {
             </div>
             <div className="relative w-full md:w-1/2 aspect-video">
               <Image
-                src="https://www.gep.com/prod/s3fs-public/blog-images/how-ai-is-advancing-the-medical-image-analysis-market.jpg"
+                src="/images/dashboard-preview.png"
                 alt="Medical imaging dashboard preview"
                 fill
                 className="object-cover rounded-lg shadow-lg"
@@ -45,7 +46,8 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  HIPAA-compliant platform with role-based access controls for patient data protection.
+                  HIPAA-compliant platform with role-based access controls for
+                  patient data protection.
                 </p>
               </CardContent>
             </Card>
@@ -55,7 +57,8 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Track healing progress with side-by-side comparisons and timeline visualization.
+                  Track healing progress with side-by-side comparisons and
+                  timeline visualization.
                 </p>
               </CardContent>
             </Card>
@@ -65,13 +68,14 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Compare up to four different views per fracture for comprehensive assessment.
+                  Compare up to four different views per fracture for
+                  comprehensive assessment.
                 </p>
               </CardContent>
             </Card>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
