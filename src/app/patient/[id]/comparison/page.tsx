@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 
-export default async function PatientComparisonView(props: {
-  params: { id: string };
+export default async function PatientComparisonView({
+  params,
+}: {
+  params: Promise<{ id: string }>;
 }) {
-  await Promise.resolve();
-  const { id } = props.params;
+  const { id } = await params;
   // Mock patient data
   const patient = {
     id,
