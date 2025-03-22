@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 
-export default async function PatientTimeline(props: {
-  params: { id: string };
+export default async function PatientTimeline({
+  params,
+}: {
+  params: Promise<{ id: string }>;
 }) {
-  await Promise.resolve();
-  const { id } = props.params;
+  const { id } = await params;
 
   // Mock patient data
   const patient = {
