@@ -2,8 +2,13 @@ import Link from "next/link"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+interface PatientDetailsViewProps {
+  params: {
+    id: string
+  }
+}
 
-export default function PatientDetailsView({ params }: { params: { id: string } }) {
+export default function PatientDetailsView({ params }: PatientDetailsViewProps) {
   // Mock patient data
   const patient = {
     id: params.id,

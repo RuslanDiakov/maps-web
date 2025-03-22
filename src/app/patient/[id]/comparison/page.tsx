@@ -11,20 +11,21 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 
-export default async function PatientComparisonView({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+interface PatientComparisonViewProps {
+  params: {
+    id: string
+  }
+}
+
+export default function PatientComparisonView({ params }: PatientComparisonViewProps) {
   // Mock patient data
   const patient = {
-    id,
+    id: params.id,
     name: "John Doe",
     age: 45,
     gender: "Male",
     dob: "1987-12-15",
-  };
+  }
 
   // Mock timeline data for dropdowns
   const timelineOptions = [
@@ -51,28 +52,28 @@ export default async function PatientComparisonView({
                 value="timeline"
                 className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                <Link href={`/patient/${id}/timeline`}>Timeline</Link>
+                <Link href={`/patient/${params.id}/timeline`}>Timeline</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="comparison"
                 className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 asChild
               >
-                <Link href={`/patient/${id}/comparison`}>Comparison View</Link>
+                <Link href={`/patient/${params.id}/comparison`}>Comparison View</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="notes"
                 className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 asChild
               >
-                <Link href={`/patient/${id}/notes`}>Clinical Notes</Link>
+                <Link href={`/patient/${params.id}/notes`}>Clinical Notes</Link>
               </TabsTrigger>
               <TabsTrigger
                 value="details"
                 className="border-t-0 border-l-0 border-r-0 border-b-2 font-normal text-muted-foreground hover:text-primary data-[state=active]:text-primary hover:font-semibold hover:border-b-2 hover:border-primary px-4 py-2 rounded-none data-[state=active]:font-semibold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 asChild
               >
-                <Link href={`/patient/${id}/details`}>Patient Details</Link>
+                <Link href={`/patient/${params.id}/details`}>Patient Details</Link>
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -112,7 +113,7 @@ export default async function PatientComparisonView({
                   <h3 className="font-semibold">Initial</h3>
                   <p className="text-sm text-muted-foreground">2024-05-15</p>
                 </div>
-                <Link href={`/patient/${id}/week/${4}`}>
+                <Link href={`/patient/${params.id}/week/${4}`}>
                   <Button variant="outline" size="sm">
                     View
                   </Button>
@@ -153,7 +154,7 @@ export default async function PatientComparisonView({
                   <h3 className="font-semibold">Week 8</h3>
                   <p className="text-sm text-muted-foreground">2024-12-15</p>
                 </div>
-                <Link href={`/patient/${id}/week/${4}`}>
+                <Link href={`/patient/${params.id}/week/${4}`}>
                   <Button variant="outline" size="sm">
                     View
                   </Button>
